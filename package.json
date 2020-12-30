@@ -1,0 +1,17 @@
+{
+  "name": "sit-epidemicreport",
+  "version": "1.0.0",
+  "description": "",
+  "main": "SIT-EpidemicReport.js",
+  "scripts": {
+    "start": "nodemon SIT-EpidemicReport",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "js-md5": "^0.7.3",
+    "jshashes": "^1.0.8"
+  }
+}
