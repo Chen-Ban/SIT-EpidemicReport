@@ -12,28 +12,7 @@ const requset = axios.create({
 
 
 const cardNoList = {
-    'okMqsjjQxqSOR8LukID35aCS5hss' : '陈鑫',
-    'okMqsjhiFeis9b28-rLwHWBHk1bo' : '王智',
-    'okMqsjn2dd2cvGvRYRAsQuTMDPog' : '黄日宇',   
-    'okMqsjqaX8u2o1jEqXr60HGOQNK8' : '宋安邦',
-    'okMqsjiN9bmo8CYEbY8Q4tTeD8Xo' : '王佳龙',
-    'okMqsjl4KQxhIXbw4n43hqVNfR3o' : '彭天琦',
-    'okMqsjoLRaoh4OecONgN6QTh2_MI' : '李鹏鑫',
-    'okMqsjmhjo9WBk52_E64FuzpGkJU' : '王书田',
-    'okMqsjivo8Y96c4HKjuIzvR_uzvE' : '应捷',
-    'okMqsjlrvW2Xfp39m-N-zG9n_Ccs' : '王浩洋',
-    'okMqsjk4OEisYk9aqSNaRh_aU50M' : '贺婧佩',
-    'okMqsjqhiRaA9JWUnaebu9fhZBlE' : '方静',
-    'okMqsjqruQfdIbeg8DItOAUBW2TI' : '王锦华',
-    'okMqsjgiiy0rgYHg3SaNQ-LwOf9I' : '赵培任',
-    'okMqsjiDH1ieOaEPmnFkPPiBRSBU' : '王清',
-    'okMqsjtdye1N_WXHhRWuaGsMB96g' : '刘雨璇',
-    'okMqsjkzRAAwAg5f_4RjJApFlF98' : '刘疆泉',
-    'okMqsjo55TQhGAJeTygh2DMHneVc' : '严如刚',
-    'okMqsjjUTc_zq_mcuMGiuUrdhg-I' : '王彪',
-    'okMqsjqEhbRnnELirhjLlFMaDrJ8' : '衷涛',
-    'okMqsjgqGWpLLfTruPoPX4qadWT4' : '张万垚',
-    'okMqsjq5kZK_nUiIGDtv2zx93eaQ' : '何佳旺'
+	openid:name
 }
 console.log(Object.keys(cardNoList).length)
     
