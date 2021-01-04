@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "js-md5": "^0.7.3",
-    "jshashes": "^1.0.8"
+    "jshashes": "^1.0.8",
+    "node-schedule": "^1.3.2"
   }
 }

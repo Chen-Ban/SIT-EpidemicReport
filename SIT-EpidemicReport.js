@@ -1,5 +1,6 @@
 const axios = require('axios')
 const md5  = require('js-md5')
+const schedule = require('node-schedule')
 
 const url_historyRepoter = "http://210.35.96.114/report/report/getMyReport"
 const url_todayRepoter = 'http://210.35.96.114/report/report/todayReport'
@@ -12,7 +13,11 @@ headers = {
 
 
 const user = {
-	id:name
+    '181042Y102':'陈鑫',
+    '1810300127':'文琪',
+    '181021Y136':'刘妍',
+    '181012Y120':'赵晓莹',
+    '1810300122' : '宋佳琪'
 }
 
 const genearteMD5 = (val)=>{
@@ -57,7 +62,7 @@ const getHistoryRepoter = async (historyRepoterRequestDataArray)=>{
             console.log(`获取学号为${user[historyRepoterRequestData.usercode]}同学前一天的上报信息成功`)
             yesterdayInfoArray.push(result.data.data[0])
         }catch(error){
-            throw new error(`${ user[yesterdayInfo.usercode]  }同学的信息上报出错`)          
+            throw new Error(`${user[historyRepoterRequestData.usercode]}同学的信息上报出错`)          
         }
     }
     return yesterdayInfoArray
@@ -73,8 +78,12 @@ const todayReport = async (yesterdayInfoArray)=>{
     const t = new Date().getTime().toString()
     const today = new Date().getFullYear().toString()+(new Date().getMonth()+1).toString().padStart(2,'0')+new Date().getDate().toString().padStart(2,'0')
     
+    if(!yesterdayInfoArray){
+        throw Error('获取信息出错')
+    }
+
     for (const yesterdayInfo of yesterdayInfoArray) {
-        console.log(yesterdayInfo.batchno != today?`${ user[yesterdayInfo.usercode]  }今日未上报`:`${ user[yesterdayInfo.usercode]  }今日已上报`)
+        console.log(yesterdayInfo.batchno != today?`${ user[yesterdayInfo.usercode]}${today}日未上报`:`${ user[yesterdayInfo.usercode]  }${today}日已上报`)
         if(yesterdayInfo.batchno != today){
             delete yesterdayInfo.ksfl2
             delete yesterdayInfo.jttw2
@@ -94,10 +103,10 @@ const todayReport = async (yesterdayInfoArray)=>{
                 if(result.data.code == 0){
                     console.log(`${ user[yesterdayInfo.usercode]  }同学的信息上报成功`)
                 }else{
-                    throw new error(`${ user[yesterdayInfo.usercode]  }同学的信息上报出错`)          
+                    throw new Error(`${ user[yesterdayInfo.usercode]  }同学的信息上报出错`)          
                 }        
             } catch (error) {
-                throw new error(`${ user[yesterdayInfo.usercode]  }同学的信息上报出错`)          
+                throw new Error(`${ user[yesterdayInfo.usercode]  }同学的信息上报出错`)          
             }
             
         }
@@ -105,19 +114,23 @@ const todayReport = async (yesterdayInfoArray)=>{
     
 }
 
-const main = async (n = 1)=>{
-    if(n<=10){
-        try {
-            const historyRepoterRequestDataArray =  initHistoryRepoterRequestDataArray()
-            const yesterdayInfoArray = await getHistoryRepoter(historyRepoterRequestDataArray)
-            await todayReport(yesterdayInfoArray)
-        } catch (error) {
-            console.log(error)
-            await main (++n)
+const main = async (id=0)=>{
+    try {
+        const historyRepoterRequestDataArray =  initHistoryRepoterRequestDataArray()
+        const yesterdayInfoArray = await getHistoryRepoter(historyRepoterRequestDataArray)
+        await todayReport(yesterdayInfoArray)
+        if(id){
+            clearTimeout(id)
         }
+    } catch (error) {
+        console.log(error)
+        const id = setTimeout(()=>{
+            main (id)
+        },1000*30)
+        
     }
 }
 
-setInterval(() => {
+schedule.scheduleJob('1 * * * * *',()=>{
     main()
-}, 1000*60*60*4);
+})
