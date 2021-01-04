@@ -131,6 +131,6 @@ const main = async (id=0)=>{
     }
 }
 
-schedule.scheduleJob('1 * * * * *',()=>{
+schedule.scheduleJob('0 0 0 * * *',()=>{
     main()
 })
