@@ -71,7 +71,7 @@ const todayReport = async (yesterdayInfoArray)=>{
         headers,
     }
     const t = new Date().getTime().toString()
-    const today = new Date().getFullYear().toString()+(new Date().getMonth()+1)+new Date().getDate()
+    const today = new Date().getFullYear().toString()+(new Date().getMonth()+1).toString().padStart(2,'0')+new Date().getDate().toString().padStart(2,'0')
     
     for (const yesterdayInfo of yesterdayInfoArray) {
         console.log(yesterdayInfo.batchno != today?`${ user[yesterdayInfo.usercode]  }今日未上报`:`${ user[yesterdayInfo.usercode]  }今日已上报`)
