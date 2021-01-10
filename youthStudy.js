@@ -1,5 +1,7 @@
 const axios = require('axios')
 const utils = require('util') 
+const schedule = require('node-schedule')
+
 
 const requset = axios.create({
     method : "GET",
@@ -12,14 +14,38 @@ const requset = axios.create({
 
 
 const cardNoList = {
-	openid:name
+	'okMqsjjQxqSOR8LukID35aCS5hss' : '陈鑫',
+    'okMqsjhiFeis9b28-rLwHWBHk1bo' : '王智',
+    'okMqsjn2dd2cvGvRYRAsQuTMDPog' : '黄日宇',   
+    'okMqsjqaX8u2o1jEqXr60HGOQNK8' : '宋安邦',
+    'okMqsjiN9bmo8CYEbY8Q4tTeD8Xo' : '王佳龙',
+    'okMqsjl4KQxhIXbw4n43hqVNfR3o' : '彭天琦',
+    'okMqsjoLRaoh4OecONgN6QTh2_MI' : '李鹏鑫',
+    'okMqsjmhjo9WBk52_E64FuzpGkJU' : '王书田',
+    'okMqsjivo8Y96c4HKjuIzvR_uzvE' : '应捷',
+    'okMqsjlrvW2Xfp39m-N-zG9n_Ccs' : '王浩洋',
+    'okMqsjk4OEisYk9aqSNaRh_aU50M' : '贺婧佩',
+    'okMqsjqhiRaA9JWUnaebu9fhZBlE' : '方静',
+    'okMqsjqruQfdIbeg8DItOAUBW2TI' : '王锦华',
+    'okMqsjgiiy0rgYHg3SaNQ-LwOf9I' : '赵培任',
+    'okMqsjiDH1ieOaEPmnFkPPiBRSBU' : '王清',
+    'okMqsjtdye1N_WXHhRWuaGsMB96g' : '刘雨璇',
+    'okMqsjkzRAAwAg5f_4RjJApFlF98' : '刘疆泉',
+    'okMqsjo55TQhGAJeTygh2DMHneVc' : '严如刚',
+    'okMqsjjUTc_zq_mcuMGiuUrdhg-I' : '王彪',
+    'okMqsjqEhbRnnELirhjLlFMaDrJ8' : '衷涛',
+    'okMqsjgqGWpLLfTruPoPX4qadWT4' : '张万垚',
+    'okMqsjq5kZK_nUiIGDtv2zx93eaQ' : '何佳旺',
+    'okMqsjpKGQZ0DYCNhPYRCKn_TQ0s' : '陈凯文'
 }
-console.log(Object.keys(cardNoList).length)
+console.log(`${Object.keys(cardNoList).length}人`)
     
 
 
 
-async function youthStudyRepoter(){
+async function getEachUserConfig(){
+
+    const joinConfigResult =[]
 
     let currentConfig = {
         url:`/common-api/course/current`,
@@ -27,7 +53,7 @@ async function youthStudyRepoter(){
 
     let result1 = await requset(currentConfig)
     const courseId = result1.data.result.id
-    console.log(courseId)
+    console.log(`第${courseId.slice(-2)*1+1}期`)
     
     for (const [key , value] of Object.entries(cardNoList)) {
         
@@ -42,7 +68,6 @@ async function youthStudyRepoter(){
         const accessToken = result.data.match(/'accessToken'\, '\w+-\w+-\w+-\w+-\w+'/)[0].split('\'')[3]
         console.log(accessToken)
 
-
         let joinConfig = {
             url: `/user-api/course/join?accessToken=${accessToken}`,
             method: "POST",
@@ -54,26 +79,35 @@ async function youthStudyRepoter(){
             }
         }
 
-        const delay  = Math.random()*60
-        setTimeout(async ()=>{
-            const result3 = await requset(joinConfig)
-            console.log(result3.data.result.cardNo)
-        },1000 * delay)
-        
+        joinConfigResult.push(joinConfig)
+        // const result3 = await requset(joinConfig)
+        // console.log(result3.data.result.cardNo)
+    }
+    return joinConfigResult
+}
+
+const eachUserReporterGen = async (config) =>{
+    return new Promise(async (resolve,reject)=>{
+        const delay = Math.random()*20*1000+10
+        setTimeout(async()=>{
+            const result = await requset(config)
+            // console.log(result.data.result.cardNo)
+            resolve(result.data.result.cardNo)
+        },delay)
+    })
+} 
+
+const reporter = async ()=>{
+    const joinConfigResult =await getEachUserConfig()
+    const arr = []
+    for (const config of joinConfigResult) {
+        arr.push(eachUserReporterGen(config))
+    }
+    for await (let item of arr){
+        console.log(`${item}已上报`)
     }
 }
 
-async function getYouthStudyAnswer(){
-    let getANswerConfig = {
-        url : 'http://h5.cyol.com/special/daxuexi/edxasojtbc/css/index.css'
-    }
-    const result = await axios(getANswerConfig)
-    
-    const e = /.s[5-8]{\w{}/
-    
-    // console.log(e.test(result.data))
-}
-
-getYouthStudyAnswer()
-youthStudyRepoter()
-
+schedule.scheduleJob('0 0 9 * * 1',()=>{
+    reporter()
+})
