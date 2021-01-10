@@ -108,6 +108,6 @@ const reporter = async ()=>{
     }
 }
 
-schedule.scheduleJob('0 0 9 * * 1',()=>{
+schedule.scheduleJob('0 0 9 * * 2',()=>{
     reporter()
 })
