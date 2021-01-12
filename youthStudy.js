@@ -36,7 +36,19 @@ const cardNoList = {
     'okMqsjqEhbRnnELirhjLlFMaDrJ8' : '衷涛',
     'okMqsjgqGWpLLfTruPoPX4qadWT4' : '张万垚',
     'okMqsjq5kZK_nUiIGDtv2zx93eaQ' : '何佳旺',
-    'okMqsjpKGQZ0DYCNhPYRCKn_TQ0s' : '陈凯文'
+    'okMqsjpKGQZ0DYCNhPYRCKn_TQ0s' : '陈凯文',
+    'okMqsjsziDmNQDOTa9t5L5FfNWx8' : '咼萱俞',
+    'okMqsjt2jcjNUb-x5EIES1ZEKGRg' : '吴晓辉',
+    'okMqsjm_lFXqxc0LJS2uKsY2mKjQ' : '洪岩',
+    'okMqsjj9kA23X2209CYJ-d2j_KJI' : '林春华',
+    'okMqsjkVLcQua_FLUnh3KM20zxuY' : '李浚源',
+    'okMqsjqWt7cRExGEdYanFcnPAPO8' : '李紫熹',
+    'okMqsjp9IiEh9Lr8dsuvFx7ES7sg' : '洪铃豪',
+    'okMqsjsEeMu0KYq2Liv3dq1Iw9mw' : '王智',
+    'okMqsjuvkX3kUGzVI5FFOj3QuKwo' : '黄旖纬',
+    'okMqsjmdk07AOjqqO7avOHdGhiZU' : '罗曼斯',
+    'okMqsjrYl5S330TiLGLr1BxMOb7M' : '刘雨烟',
+    'okMqsjqhbgcUlkwLsWAbMogUXUCc' : '胡达莲'
 }
 console.log(`${Object.keys(cardNoList).length}人`)
     
