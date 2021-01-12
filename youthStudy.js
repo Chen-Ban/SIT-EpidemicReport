@@ -48,7 +48,8 @@ const cardNoList = {
     'okMqsjuvkX3kUGzVI5FFOj3QuKwo' : '黄旖纬',
     'okMqsjmdk07AOjqqO7avOHdGhiZU' : '罗曼斯',
     'okMqsjrYl5S330TiLGLr1BxMOb7M' : '刘雨烟',
-    'okMqsjqhbgcUlkwLsWAbMogUXUCc' : '胡达莲'
+    'okMqsjqhbgcUlkwLsWAbMogUXUCc' : '胡达莲',
+    'okMqsjpKK07BARO8Qdm9FMv_X5Ak' : '沐世杰'
 }
 console.log(`${Object.keys(cardNoList).length}人`)
     
