@@ -64,6 +64,7 @@ const getHistoryRepoter = async (historyRepoterRequestDataArray)=>{
             let result = await axios(historyRepoterConfig)
             console.log(`获取学号为${user[historyRepoterRequestData.usercode]}同学前一天的上报信息成功`)
             yesterdayInfoArray.push(result.data.data[0])
+            // console.log(result.data.data[0])
         }catch(error){
             throw new Error(`${user[historyRepoterRequestData.usercode]}同学的信息上报出错`)          
         }
@@ -88,9 +89,14 @@ const todayReport = async (yesterdayInfoArray)=>{
     for (const yesterdayInfo of yesterdayInfoArray) {
         console.log(yesterdayInfo.batchno != today?`${ user[yesterdayInfo.usercode]}${today}日未上报`:`${ user[yesterdayInfo.usercode]  }${today}日已上报`)
         if(yesterdayInfo.batchno != today){
+            delete yesterdayInfo.batchno
+            delete yesterdayInfo.fanxiang
+            delete yesterdayInfo.ivyou
+            delete yesterdayInfo.jiechu
+            delete yesterdayInfo.jiechuqy
+            delete yesterdayInfo.notforegoing
             delete yesterdayInfo.ksfl2
             delete yesterdayInfo.jttw2
-            delete yesterdayInfo.id
             delete yesterdayInfo.currentsituation2
             delete yesterdayInfo.wendu2
             delete yesterdayInfo.studentclass
@@ -122,7 +128,7 @@ const main = async (id=0)=>{
         const historyRepoterRequestDataArray =  initHistoryRepoterRequestDataArray()
         const yesterdayInfoArray = await getHistoryRepoter(historyRepoterRequestDataArray)
         await todayReport(yesterdayInfoArray)
-        if(id){
+        if(!!id){
             clearTimeout(id)
         }
     } catch (error) {
@@ -134,6 +140,8 @@ const main = async (id=0)=>{
     }
 }
 
-schedule.scheduleJob('0 0 0 * * *',()=>{
-    main()
-})
+// schedule.scheduleJob('0 0 0 * * *',()=>{
+//     main()
+// })
+
+main()
