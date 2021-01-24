@@ -140,8 +140,8 @@ const main = async (id=0)=>{
     }
 }
 
-// schedule.scheduleJob('0 0 0 * * *',()=>{
-//     main()
-// })
+schedule.scheduleJob('0 1 0 * * *',()=>{
+    main()
+})
 
-main()
+// main()
